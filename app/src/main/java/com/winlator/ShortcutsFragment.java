@@ -68,9 +68,10 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
 
         boolean libraryRoot = folderStack.isEmpty();
         if (libraryRoot) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            int columns = Math.max(2, getResources().getConfiguration().screenWidthDp / 190);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
             recyclerView.setClipToPadding(false);
-            recyclerView.setPadding(18, 8, 18, 20);
+            recyclerView.setPadding(10, 8, 10, 20);
         }
         else if (viewStyle == ViewStyle.LIST) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

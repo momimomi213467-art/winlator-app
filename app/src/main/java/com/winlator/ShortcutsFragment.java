@@ -69,7 +69,14 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         boolean libraryRoot = folderStack.isEmpty();
         if (libraryRoot) {
             int columns = Math.max(2, getResources().getConfiguration().screenWidthDp / 190);
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
+            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), columns);
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return position == 0 ? columns : 1;
+                }
+            });
+            recyclerView.setLayoutManager(layoutManager);
             recyclerView.setClipToPadding(false);
             recyclerView.setPadding(10, 8, 10, 20);
         }
@@ -184,8 +191,13 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            int resource = folderStack.isEmpty() ? R.layout.winebox_game_card : (viewStyle == ViewStyle.LIST ? R.layout.file_list_item : R.layout.file_grid_item);
+            int resource = folderStack.isEmpty() ? (viewType == 1 ? R.layout.winebox_game_hero : R.layout.winebox_game_card) : (viewStyle == ViewStyle.LIST ? R.layout.file_list_item : R.layout.file_grid_item);
             return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(resource, parent, false));
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return folderStack.isEmpty() && position == 0 ? 1 : 0;
         }
 
         @Override

@@ -25,6 +25,7 @@ public class AboutDialog extends ContentDialog {
             ((TextView)findViewById(R.id.TVAppVersion)).setText(context.getString(R.string.version)+" "+pInfo.versionName);
 
             String creditsAndThirdPartyAppsHTML = String.join("<br />",
+                "Based on Winlator (LGPL-2.1) — original project by BrunoSX",
                 "GLIBC Patches by (<a href=\"https://github.com/termux-pacman/glibc-packages\">Termux Pacman</a>)",
                 "Wine (<a href=\"https://www.winehq.org\">winehq.org</a>)",
                 "Box86/Box64 by <a href=\"https://github.com/ptitSeb\">ptitseb</a>",

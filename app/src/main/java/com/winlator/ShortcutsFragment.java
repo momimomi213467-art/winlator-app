@@ -19,6 +19,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.winlator.container.Shortcut;
 import com.winlator.contentdialog.ContentDialog;
@@ -32,6 +36,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.winebox_home_fragment, container, false);
+        recyclerView = root.findViewById(R.id.RecyclerView);
+        emptyTextView = root.findViewById(R.id.TVEmptyText);
+        pasteButton = root.findViewById(R.id.BTPaste);
+        pasteButton.setOnClickListener((v) -> pasteFiles());
+
+        if (itemDecoration == null) {
+            Context context = getContext();
+            itemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+            itemDecoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.list_item_divider));
+        }
+        recyclerView.addItemDecoration(itemDecoration);
+        return root;
+    }
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +64,13 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
     @Override
     public void refreshContent() {
         super.refreshContent();
+
+        boolean libraryRoot = folderStack.isEmpty();
+        if (libraryRoot) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerView.setClipToPadding(false);
+            recyclerView.setPadding(18, 8, 18, 20);
+        }
 
         Shortcut selectedFolder = !folderStack.isEmpty() ? folderStack.peek() : null;
         ArrayList<Shortcut> shortcuts = manager.loadShortcuts(selectedFolder);
@@ -115,7 +145,7 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
 
     @Override
     protected String getHomeTitle() {
-        return getString(R.string.shortcuts);
+        return "WineBox";
     }
 
     private class ShortcutsAdapter extends RecyclerView.Adapter<ShortcutsAdapter.ViewHolder> {
@@ -145,7 +175,7 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            int resource = viewStyle == ViewStyle.LIST ? R.layout.file_list_item : R.layout.file_grid_item;
+            int resource = folderStack.isEmpty() ? R.layout.winebox_game_card : (viewStyle == ViewStyle.LIST ? R.layout.file_list_item : R.layout.file_grid_item);
             return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(resource, parent, false));
         }
 
@@ -167,6 +197,12 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
             }
             else holder.runButton.setImageResource(R.drawable.icon_run);
 
+            holder.itemView.setFocusable(true);
+            holder.itemView.setOnClickListener((v) -> runFromShortcut(item));
+            holder.itemView.setOnFocusChangeListener((v, hasFocus) -> {
+                v.animate().scaleX(hasFocus ? 1.035f : 1.0f).scaleY(hasFocus ? 1.035f : 1.0f)
+                    .translationZ(hasFocus ? 12.0f : 0.0f).setDuration(140).start();
+            });
             holder.imageView.setOnClickListener((v) -> runFromShortcut(item));
             holder.runButton.setOnClickListener((v) -> runFromShortcut(item));
             holder.menuButton.setOnClickListener((v) -> showListItemMenu(v, item));

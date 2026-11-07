@@ -73,7 +73,7 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
             layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return position == 0 ? columns : 1;
+                    return position == 0 ? Math.min(2, columns) : 1;
                 }
             });
             recyclerView.setLayoutManager(layoutManager);

@@ -39,17 +39,20 @@
         <item name="progressBarIndeterminateImage">@drawable/progress_bar_indeterminate_light</item>
     </style>
     <style name="AppThemeDark" parent="@style/AppThemeBase">
-        <item name="colorAccent">#0288d1</item>
-        <item name="colorPrimary">#505963</item>
-        <item name="colorPrimaryDark">#3f474f</item>
-        <item name="colorControlNormal">#616161</item>
-        <item name="colorPrimaryText">#fafafa</item>
-        <item name="colorSecondaryText">#9e9e9e</item>
-        <item name="colorPrimarySurface">#1b1e21</item>
-        <item name="colorSecondarySurface">#2d3238</item>
-        <item name="colorPrimaryVariant">#56677a</item>
-        <item name="colorSecondaryVariant">#37424f</item>
-        <item name="colorError">#ef5350</item>
+        <item name="colorAccent">#0070D1</item>
+        <item name="colorPrimary">#14243A</item>
+        <item name="colorPrimaryDark">#080C14</item>
+        <item name="colorControlNormal">#718096</item>
+        <item name="colorPrimaryText">#FFFFFF</item>
+        <item name="colorSecondaryText">#AAB7C8</item>
+        <item name="colorPrimarySurface">#0B0F1A</item>
+        <item name="colorSecondarySurface">#141C2B</item>
+        <item name="colorPrimaryVariant">#183B60</item>
+        <item name="colorSecondaryVariant">#1B2A3F</item>
+        <item name="colorError">#EF5350</item>
+        <item name="android:statusBarColor">#0B0F1A</item>
+        <item name="android:navigationBarColor">#0B0F1A</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="popupMenuBackground">@drawable/content_dialog_background_dark</item>
         <item name="toolboxBackground">@drawable/toolbox_dark</item>
         <item name="panelBackground">@drawable/panel_background_dark</item>

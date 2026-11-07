@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B0F1A">
+    android:background="#080B13">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,52 +10,90 @@
         android:orientation="vertical"
         android:paddingTop="18dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:text="WINEBOX"
-            android:textColor="#0070D1"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.18" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="WINEBOX"
+                android:textColor="#79AFFF"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:background="@drawable/winebox_chip_background"
+                android:text="PC GAMING"
+                android:textColor="#B9C9E4"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/TVHeroTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="6dp"
-            android:text="Your game library"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="22dp"
+            android:text="Your games"
             android:textColor="#FFFFFF"
-            android:textSize="28sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/TVHeroSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:paddingTop="4dp"
-            android:paddingBottom="22dp"
-            android:text="Windows games, ready to play"
-            android:textColor="#AAB7C8"
-            android:textSize="14sp" />
+            android:paddingBottom="18dp"
+            android:text="Your Windows library, all in one place"
+            android:textColor="#8D9BB3"
+            android:textSize="13sp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingBottom="12dp"
-            android:text="RECENTLY PLAYED"
-            android:textColor="#AAB7C8"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.12" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="LIBRARY"
+                android:textColor="#DCE7FA"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ALL GAMES"
+                android:textColor="#79AFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView"
@@ -63,6 +101,9 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:clipToPadding="false"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:paddingBottom="18dp"
             android:overScrollMode="never"
             android:scrollbars="none" />
     </LinearLayout>
@@ -73,9 +114,9 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:padding="32dp"
-        android:text="No games yet. Add a Windows shortcut to get started."
-        android:textColor="#AAB7C8"
-        android:textSize="16sp"
+        android:text="Your library is empty\nAdd a Windows shortcut to get started."
+        android:textColor="#8D9BB3"
+        android:textSize="15sp"
         android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

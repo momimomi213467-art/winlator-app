@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="264dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="14dp"
+    android:layout_margin="6dp"
     android:background="@drawable/winebox_game_card_background"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/ImageView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="154dp"
-        android:background="#1B2A3F"
-        android:contentDescription="@string/shortcuts"
-        android:scaleType="centerCrop" />
+        android:layout_height="142dp">
+
+        <ImageView
+            android:id="@+id/ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#1B2940"
+            android:contentDescription="@string/shortcuts"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_gravity="top|left"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:background="@drawable/winebox_chip_background"
+            android:text="WINDOWS"
+            android:textColor="#DCE7FA"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/TVTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textColor="#F4F7FF"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <TextView
@@ -35,13 +55,13 @@
         android:layout_marginTop="3dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="#AAB7C8"
-        android:textSize="12sp" />
+        android:textColor="#8D9BB3"
+        android:textSize="11sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="6dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -49,28 +69,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="PLAY"
-            android:textColor="#0070D1"
-            android:textSize="12sp"
+            android:text="LAUNCH GAME"
+            android:textColor="#79AFFF"
+            android:textSize="10sp"
             android:textStyle="bold"
-            android:letterSpacing="0.12" />
+            android:letterSpacing="0.06" />
 
         <ImageView
             android:id="@+id/BTRun"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/winebox_play_button"
             android:contentDescription="@string/run"
-            android:padding="11dp"
+            android:padding="10dp"
             android:src="@drawable/icon_run" />
 
         <ImageView
             android:id="@+id/BTMenu"
-            android:layout_width="38dp"
-            android:layout_height="42dp"
-            android:layout_marginLeft="6dp"
+            android:layout_width="34dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="4dp"
             android:contentDescription="@string/settings"
-            android:padding="10dp"
+            android:padding="9dp"
             android:src="@drawable/icon_list_item_menu" />
     </LinearLayout>
 </LinearLayout>

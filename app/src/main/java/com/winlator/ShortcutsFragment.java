@@ -20,6 +20,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -70,6 +71,13 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
             recyclerView.setClipToPadding(false);
             recyclerView.setPadding(18, 8, 18, 20);
+        }
+        else if (viewStyle == ViewStyle.LIST) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
+        else {
+            int columns = Math.max(2, getResources().getConfiguration().screenWidthDp / 200);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
         }
 
         Shortcut selectedFolder = !folderStack.isEmpty() ? folderStack.peek() : null;

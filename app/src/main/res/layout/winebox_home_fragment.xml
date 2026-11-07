@@ -2,35 +2,34 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#090B10">
+    android:background="#090909">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="14dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="58dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="18dp"
-            android:paddingRight="18dp">
+            android:paddingRight="18dp"
+            android:background="#CC090909">
 
             <TextView
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:background="@drawable/winebox_chip_background"
                 android:gravity="center"
                 android:text="☰"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="18dp"
                 android:text="WINEBOX"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
@@ -40,19 +39,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:text="MY GAMES"
+                android:layout_marginLeft="28dp"
+                android:text="MY"
                 android:textColor="#FFFFFF"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
+                android:layout_marginLeft="22dp"
                 android:text="DISCOVER"
-                android:textColor="#8D929D"
-                android:textSize="12sp" />
+                android:textColor="#777777"
+                android:textSize="13sp" />
 
             <View
                 android:layout_width="0dp"
@@ -60,25 +59,13 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:gravity="center"
                 android:text="⌕"
                 android:textColor="#FFFFFF"
-                android:textSize="27sp" />
+                android:textSize="28sp" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingTop="18dp"
-            android:paddingBottom="4dp"
-            android:text="PICK UP WHERE YOU LEFT OFF"
-            android:textColor="#9AA3B3"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.14" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView"
@@ -88,10 +75,50 @@
             android:clipToPadding="false"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="4dp"
+            android:paddingTop="10dp"
             android:paddingBottom="18dp"
             android:overScrollMode="never"
             android:scrollbars="none" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="#CC090909">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Y"
+                android:textColor="#111111"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/winebox_footer_key"
+                android:layout_marginRight="8dp"
+                android:padding="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SEARCH"
+                android:textColor="#BBBBBB"
+                android:textSize="11sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="☰   MENU"
+                android:textColor="#BBBBBB"
+                android:textSize="11sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -101,7 +128,7 @@
         android:gravity="center"
         android:padding="32dp"
         android:text="Your library is empty\nAdd a Windows shortcut to get started."
-        android:textColor="#A6ADBA"
+        android:textColor="#AAAAAA"
         android:textSize="15sp"
         android:visibility="gone" />
 
@@ -110,8 +137,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:layout_margin="20dp"
+        android:layout_margin="72dp"
         android:src="@drawable/icon_paste"
         android:tint="#FFFFFF"
+        android:backgroundTint="#555555"
         android:visibility="gone" />
 </FrameLayout>

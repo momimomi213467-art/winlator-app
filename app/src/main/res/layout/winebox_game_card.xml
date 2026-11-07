@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="264dp"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="14dp"
+    android:background="@drawable/winebox_game_card_background"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/ImageView"
+        android:layout_width="match_parent"
+        android:layout_height="154dp"
+        android:background="#1B2A3F"
+        android:contentDescription="@string/shortcuts"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/TVTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TVSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#AAB7C8"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PLAY"
+            android:textColor="#0070D1"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12" />
+
+        <ImageView
+            android:id="@+id/BTRun"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="@drawable/winebox_play_button"
+            android:contentDescription="@string/run"
+            android:padding="11dp"
+            android:src="@drawable/icon_run" />
+
+        <ImageView
+            android:id="@+id/BTMenu"
+            android:layout_width="38dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="6dp"
+            android:contentDescription="@string/settings"
+            android:padding="10dp"
+            android:src="@drawable/icon_list_item_menu" />
+    </LinearLayout>
+</LinearLayout>

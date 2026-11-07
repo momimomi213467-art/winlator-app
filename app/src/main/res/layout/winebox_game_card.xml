@@ -17,7 +17,7 @@
             android:id="@+id/ImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#1B2940"
+            android:background="#202020"
             android:contentDescription="@string/shortcuts"
             android:scaleType="centerCrop" />
 
@@ -31,7 +31,7 @@
             android:paddingRight="8dp"
             android:background="@drawable/winebox_chip_background"
             android:text="WINDOWS"
-            android:textColor="#DCE7FA"
+            android:textColor="#FFFFFF"
             android:textSize="9sp"
             android:textStyle="bold"
             android:letterSpacing="0.06" />
@@ -55,7 +55,7 @@
         android:layout_marginTop="3dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="#8D9BB3"
+        android:textColor="#AAAAAA"
         android:textSize="11sp" />
 
     <LinearLayout
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="LAUNCH GAME"
-            android:textColor="#79AFFF"
+            android:textColor="#EEEEEE"
             android:textSize="10sp"
             android:textStyle="bold"
             android:letterSpacing="0.06" />

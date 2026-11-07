@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="300dp"
     android:layout_margin="8dp"
     android:background="@drawable/winebox_hero_background"
     android:clipToOutline="true"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="18dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,8 +35,8 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:text="FEATURED GAME"
-            android:textColor="#EAF2FF"
+            android:text="NOW PLAYING"
+            android:textColor="#FFFFFF"
             android:textSize="10sp"
             android:textStyle="bold"
             android:letterSpacing="0.08" />
@@ -49,7 +49,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="#FFFFFF"
-            android:textSize="25sp"
+            android:textSize="23sp"
             android:textStyle="bold" />
 
         <TextView
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:textColor="#D6DCE8"
+            android:textColor="#DDDDDD"
             android:textSize="12sp" />
 
         <LinearLayout
@@ -97,7 +97,8 @@
                 android:layout_height="38dp"
                 android:contentDescription="@string/settings"
                 android:padding="9dp"
-                android:src="@drawable/icon_list_item_menu" />
+                android:src="@drawable/icon_list_item_menu"
+                android:background="@drawable/winebox_chip_background" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

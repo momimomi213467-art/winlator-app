@@ -37,13 +37,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
-    private ImageView backgroundImage;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.winebox_home_fragment, container, false);
         recyclerView = root.findViewById(R.id.RecyclerView);
-        backgroundImage = root.findViewById(R.id.BackgroundImage);
         root.findViewById(R.id.BTDrawer).setOnClickListener(v -> ((MainActivity) requireActivity()).openNavigationDrawer());
         emptyTextView = root.findViewById(R.id.TVEmptyText);
         pasteButton = root.findViewById(R.id.BTPaste);
@@ -79,10 +77,8 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
             recyclerView.setClipToPadding(false);
             recyclerView.setPadding(10, 12, 10, 20);
-            backgroundImage.setVisibility(View.GONE);
         }
         else {
-            backgroundImage.setVisibility(View.GONE);
             if (viewStyle == ViewStyle.LIST) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }

@@ -186,7 +186,6 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            int viewType = getItemViewType(0);
             int resource = folderStack.isEmpty()
                 ? (viewType == 1 ? R.layout.winebox_game_card : R.layout.winebox_game_card_small)
                 : (viewStyle == ViewStyle.LIST ? R.layout.file_list_item : R.layout.file_grid_item);

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="6dp"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
     android:background="@drawable/winebox_game_card_background"
     android:clickable="true"
     android:focusable="true"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="8dp">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="142dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <ImageView
             android:id="@+id/ImageView"
@@ -21,31 +23,22 @@
             android:contentDescription="@string/shortcuts"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_gravity="top|left"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:background="@drawable/winebox_chip_background"
-            android:text="WINDOWS"
-            android:textColor="#FFFFFF"
-            android:textSize="9sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.06" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#22000000" />
     </FrameLayout>
 
     <TextView
         android:id="@+id/TVTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="#F4F7FF"
-        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
     <TextView
@@ -55,42 +48,33 @@
         android:layout_marginTop="3dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="#AAAAAA"
-        android:textSize="11sp" />
+        android:gravity="center"
+        android:textColor="#BBBBBB"
+        android:textSize="10sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_marginTop="6dp"
-        android:gravity="center_vertical"
+        android:layout_height="34dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
         android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="LAUNCH GAME"
-            android:textColor="#EEEEEE"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.06" />
 
         <ImageView
             android:id="@+id/BTRun"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@drawable/winebox_play_button"
             android:contentDescription="@string/run"
-            android:padding="10dp"
+            android:padding="8dp"
             android:src="@drawable/icon_run" />
 
         <ImageView
             android:id="@+id/BTMenu"
-            android:layout_width="34dp"
-            android:layout_height="38dp"
-            android:layout_marginLeft="4dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
             android:contentDescription="@string/settings"
-            android:padding="9dp"
+            android:padding="7dp"
             android:src="@drawable/icon_list_item_menu" />
     </LinearLayout>
 </LinearLayout>

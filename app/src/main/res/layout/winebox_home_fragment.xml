@@ -2,7 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#090909">
+    android:background="#080808">
+
+    <ImageView
+        android:id="@+id/BackgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.30"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,47 +23,70 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="62dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:background="#CC090909">
+            android:paddingRight="22dp"
+            android:background="#66000000">
 
             <TextView
+                android:id="@+id/BTDrawer"
                 android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_height="42dp"
                 android:gravity="center"
                 android:text="☰"
                 android:textColor="#FFFFFF"
-                android:textSize="22sp" />
+                android:textSize="23sp"
+                android:clickable="true"
+                android:focusable="true" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:text="WINEBOX"
+                android:layout_width="34dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:background="@drawable/winebox_chip_background"
+                android:text="LB"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.12" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="28dp"
-                android:text="MY"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="22dp"
+                android:layout_marginLeft="26dp"
+                android:text="MY"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
                 android:text="DISCOVER"
+                android:textColor="#A0A0A0"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="FIND GAMES"
                 android:textColor="#777777"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="34dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="24dp"
+                android:gravity="center"
+                android:background="@drawable/winebox_chip_background"
+                android:text="RB"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="0dp"
@@ -59,12 +94,15 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:id="@+id/BTSearch"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:gravity="center"
                 android:text="⌕"
                 android:textColor="#FFFFFF"
-                android:textSize="28sp" />
+                android:textSize="31sp"
+                android:clickable="true"
+                android:focusable="true" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -75,37 +113,36 @@
             android:clipToPadding="false"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="10dp"
+            android:paddingTop="14dp"
             android:paddingBottom="18dp"
             android:overScrollMode="never"
             android:scrollbars="none" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="#CC090909">
+            android:paddingLeft="22dp"
+            android:paddingRight="24dp"
+            android:background="#66000000">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:text="Y"
                 android:textColor="#111111"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:background="@drawable/winebox_footer_key"
-                android:layout_marginRight="8dp"
-                android:padding="5dp" />
+                android:layout_marginRight="9dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SEARCH"
-                android:textColor="#BBBBBB"
-                android:textSize="11sp" />
+                android:text="Search"
+                android:textColor="#DDDDDD"
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="0dp"
@@ -113,11 +150,21 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:text="☰"
+                android:textColor="#111111"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/winebox_footer_key"
+                android:layout_marginRight="9dp" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="☰   MENU"
-                android:textColor="#BBBBBB"
-                android:textSize="11sp" />
+                android:text="Menu"
+                android:textColor="#DDDDDD"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -128,7 +175,7 @@
         android:gravity="center"
         android:padding="32dp"
         android:text="Your library is empty\nAdd a Windows shortcut to get started."
-        android:textColor="#AAAAAA"
+        android:textColor="#EEEEEE"
         android:textSize="15sp"
         android:visibility="gone" />
 

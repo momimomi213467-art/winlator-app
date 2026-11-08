@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WineBox</string>
+    <string name="app_name">Gamelator</string>
     <string name="winebox_last_game">Ultimo gioco · 75%</string>
     <string name="winebox_add_game">Aggiungi gioco</string>
     <string name="winebox_customize">Personalizza</string>
@@ -8,7 +8,7 @@
     <string name="winebox_played_hours">Ore giocate</string>
     <string name="winebox_games_count">Giochi</string>
     <string name="winebox_news">Novità</string>
-    <string name="winebox_news_title">WineBox: la tua libreria, tutta in un posto</string>
+    <string name="winebox_news_title">Gamelator: la tua libreria, tutta in un posto</string>
     <string name="run">Run</string>
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>
@@ -360,7 +360,7 @@
     <string name="ddraw_wrapper" translatable="false">DDraw Wrapper</string>
     <string name="renderer">Renderer</string>
     <string name="default_no_override">Default (No override)</string>
-    <string name="fgs_notification_channel_desc">Keeps Winlator running in the background so a wine session is not interrupted by Android\'s background process management.</string>
+    <string name="fgs_notification_channel_desc">Keeps Gamelator running in the background so a wine session is not interrupted by Android\'s background process management.</string>
     <string name="fgs_notification_content_container_background">A container session is running in the background</string>
     <string name="fgs_notification_content_container_foreground">There is a container session running</string>
     <string name="fgs_notification_content_else">Winlator is running in the background</string>

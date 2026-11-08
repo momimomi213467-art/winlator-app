@@ -37,11 +37,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
+    private ImageView backgroundImage;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.winebox_home_fragment, container, false);
         recyclerView = root.findViewById(R.id.RecyclerView);
+        backgroundImage = root.findViewById(R.id.BackgroundImage);
+        root.findViewById(R.id.BTDrawer).setOnClickListener(v -> ((MainActivity) requireActivity()).openNavigationDrawer());
         emptyTextView = root.findViewById(R.id.TVEmptyText);
         pasteButton = root.findViewById(R.id.BTPaste);
         pasteButton.setOnClickListener((v) -> pasteFiles());
@@ -67,29 +70,33 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         super.refreshContent();
 
         boolean libraryRoot = folderStack.isEmpty();
-        if (libraryRoot) {
-            int columns = Math.max(2, getResources().getConfiguration().screenWidthDp / 190);
-            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), columns);
-            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    return position == 0 ? Math.min(2, columns) : 1;
-                }
-            });
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setClipToPadding(false);
-            recyclerView.setPadding(10, 8, 10, 20);
-        }
-        else if (viewStyle == ViewStyle.LIST) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        }
-        else {
-            int columns = Math.max(2, getResources().getConfiguration().screenWidthDp / 200);
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
-        }
-
         Shortcut selectedFolder = !folderStack.isEmpty() ? folderStack.peek() : null;
         ArrayList<Shortcut> shortcuts = manager.loadShortcuts(selectedFolder);
+
+        if (libraryRoot) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerView.setClipToPadding(false);
+            recyclerView.setPadding(4, 8, 4, 14);
+            if (!shortcuts.isEmpty() && shortcuts.get(0).icon != null) {
+                backgroundImage.setImageBitmap(shortcuts.get(0).icon);
+                backgroundImage.setVisibility(View.VISIBLE);
+            }
+            else {
+                backgroundImage.setImageDrawable(null);
+                backgroundImage.setVisibility(View.GONE);
+            }
+        }
+        else {
+            backgroundImage.setVisibility(View.GONE);
+            if (viewStyle == ViewStyle.LIST) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
+            else {
+                int columns = Math.max(2, getResources().getConfiguration().screenWidthDp / 200);
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
+            }
+        }
+
         recyclerView.setAdapter(new ShortcutsAdapter(shortcuts));
         emptyTextView.setVisibility(shortcuts.isEmpty() ? View.VISIBLE : View.GONE);
     }
@@ -192,7 +199,17 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             int resource = folderStack.isEmpty() ? (viewType == 1 ? R.layout.winebox_game_hero : R.layout.winebox_game_card) : (viewStyle == ViewStyle.LIST ? R.layout.file_list_item : R.layout.file_grid_item);
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(resource, parent, false));
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
+            if (folderStack.isEmpty()) {
+                float density = getResources().getDisplayMetrics().density;
+                int width = viewType == 1
+                    ? (int) (getResources().getDisplayMetrics().widthPixels * 0.40f)
+                    : (int) (168 * density);
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT);
+                params.setMargins((int) (5 * density), 0, (int) (5 * density), 0);
+                itemView.setLayoutParams(params);
+            }
+            return new ViewHolder(itemView);
         }
 
         @Override

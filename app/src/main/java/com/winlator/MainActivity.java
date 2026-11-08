@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -207,7 +208,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    public void openNavigationDrawer() {
+        if (drawerLayout != null) drawerLayout.openDrawer(GravityCompat.START);
+    }
+
     public void showFragment(Fragment fragment) {
+        View toolbar = findViewById(R.id.Toolbar);
+        if (toolbar != null) toolbar.setVisibility(fragment instanceof ShortcutsFragment ? View.GONE : View.VISIBLE);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
             .replace(R.id.FLFragmentContainer, fragment)

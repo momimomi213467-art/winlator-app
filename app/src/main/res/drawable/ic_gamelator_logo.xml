@@ -5,35 +5,42 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Outer blue ring -->
+    <!-- Blue ring -->
     <path
         android:fillColor="#1E90FF"
-        android:pathData="M54,6c26.5,0 48,21.5 48,48s-21.5,48 -48,48S6,80.5 6,54 27.5,6 54,6z" />
+        android:pathData="M54,4c27.6,0 50,22.4 50,50S81.6,104 54,104 4,81.6 4,54 26.4,4 54,4z" />
 
-    <!-- Dark inner circle -->
+    <!-- Black fill -->
     <path
-        android:fillColor="#0A0A0A"
-        android:pathData="M54,14c22.1,0 40,17.9 40,40s-17.9,40 -40,40S14,76.1 14,54 31.9,14 54,14z" />
+        android:fillColor="#000000"
+        android:pathData="M54,12c23.2,0 42,18.8 42,42S77.2,96 54,96 12,77.2 12,54 30.8,12 54,12z" />
 
-    <!-- White gamepad + G shape (Imagine style) -->
+    <!-- Gamepad body -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M38,48c0,-8 6.5,-14 16,-14 7,0 12,3 14,8l-7,3c-1,-2 -3.5,-4 -7,-4 -5,0 -8,3.5 -8,7.5 0,4 3,7.5 8,7.5 3.5,0 6,-2 7,-4l7,3c-2,5 -7,8 -14,8 -9.5,0 -16,-6 -16,-14z" />
+        android:pathData="M32,58c0,-6 4,-10 10,-10h8c2,-8 8,-14 16,-14 10,0 18,8 18,18 0,4 -1,8 -4,11h6c4,0 8,4 8,8 0,5 -4,9 -9,9H35c-5,0 -9,-4 -9,-9 0,-4 3,-7 6,-8z" />
 
-    <!-- Left stick / grip -->
+    <!-- G letter cut-out style on top of pad -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M28,52c-4,0 -7,3 -7,7s3,7 7,7h6v-4h-5c-1.5,0 -3,-1.5 -3,-3s1.5,-3 3,-3h5v-4h-6z" />
+        android:fillColor="#000000"
+        android:pathData="M54,36c-8,0 -14,6 -14,14h8c0,-4 3,-7 6,-7s6,3 6,7c0,4 -3,7 -6,7v6c8,0 14,-6 14,-13 0,-8 -6,-14 -14,-14z" />
 
-    <!-- Right buttons dots -->
+    <!-- Cyan accent dot -->
     <path
-        android:fillColor="#1E90FF"
-        android:pathData="M72,50a3,3 0 1,1 0,6a3,3 0 1,1 0,-6z" />
+        android:fillColor="#00B4FF"
+        android:pathData="M42,52a3.5,3.5 0 1,1 0,7a3.5,3.5 0 1,1 0,-7z" />
+
+    <!-- D-pad cross hint -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M78,56a2.5,2.5 0 1,1 0,5a2.5,2.5 0 1,1 0,-5z" />
+        android:fillColor="#CCCCCC"
+        android:pathData="M38,62h4v2h-4zM39,61h2v4h-2z" />
+
+    <!-- Buttons -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M78,46a2.5,2.5 0 1,1 0,5a2.5,2.5 0 1,1 0,-5z" />
+        android:fillColor="#CCCCCC"
+        android:pathData="M68,60a2,2 0 1,1 0,4a2,2 0 1,1 0,-4z" />
+    <path
+        android:fillColor="#CCCCCC"
+        android:pathData="M72,64a2,2 0 1,1 0,4a2,2 0 1,1 0,-4z" />
 
 </vector>

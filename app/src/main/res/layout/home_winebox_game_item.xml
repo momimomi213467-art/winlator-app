@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gameItemRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:nextFocusDown="@id/chipLastGame">
+
+    <FrameLayout
+        android:id="@+id/gameIconFrame"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/winebox_game_icon"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/gameIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="🎮"
+            android:textSize="25sp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/gameName"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="#FFFFFF"
+        android:textSize="11sp"
+        android:visibility="gone" />
+</LinearLayout>

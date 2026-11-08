@@ -1,42 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#111111">
+    android:background="#05070B"
+    android:fillViewport="true"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="22dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="52dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:background="#171717">
-
-            <TextView
-                android:id="@+id/BTDrawer"
-                android:layout_width="42dp"
-                android:layout_height="48dp"
-                android:gravity="center"
-                android:text="☰"
-                android:textColor="#FFFFFF"
-                android:textSize="23sp"
-                android:clickable="true"
-                android:focusable="true" />
+            android:paddingStart="22dp"
+            android:paddingEnd="22dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:text="WineBox"
-                android:textColor="#FFFFFF"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                android:text="WINEBOX"
+                android:textColor="#F5F7FC"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.18" />
 
             <View
                 android:layout_width="0dp"
@@ -44,56 +35,284 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MY LIBRARY"
-                android:textColor="#AAAAAA"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.08" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:text="●"
+                android:textColor="#DDE5F2"
+                android:textSize="17sp"
+                android:background="@drawable/winebox_ps5_chip" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="18dp"
-            android:paddingTop="18dp"
-            android:paddingBottom="8dp"
-            android:text="GAMES"
-            android:textColor="#EEEEEE"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.10" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="174dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:scrollbars="none" />
+
+        <TextView
+            android:id="@+id/TVWelcomeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="22dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="16dp"
+            android:text="Welcome"
+            android:textColor="#F3F5FA"
+            android:textSize="25sp"
+            android:fontFamily="sans"
+            android:letterSpacing="0.01" />
+
+        <TextView
+            android:id="@+id/TVEmptyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="12dp"
+            android:padding="14dp"
+            android:background="@drawable/winebox_ps5_panel"
+            android:text="Your game row is empty. Add a Windows shortcut to get started."
+            android:textColor="#AAB5C8"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:fillViewport="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="18dp"
+                    android:background="@drawable/winebox_ps5_panel"
+                    android:text="◉  WINEBOX READY"
+                    android:textColor="#B7C7E4"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="18dp"
+                    android:background="@drawable/winebox_ps5_panel"
+                    android:text="＋  Explore your game library"
+                    android:textColor="#E2C878"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="18dp"
+                    android:background="@drawable/winebox_ps5_panel"
+                    android:text="▦  Customize your controls"
+                    android:textColor="#C7D3E8"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="22dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="10dp"
+            android:text="YOUR WINEBOX"
+            android:textColor="#E5EAF4"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <LinearLayout
+                android:id="@+id/BTContainers"
+                android:layout_width="0dp"
+                android:layout_height="146dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/winebox_ps5_tile_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▣"
+                    android:textColor="#B9C9E7"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Containers"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Windows environments"
+                    android:textColor="#AAB6CA"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/BTControls"
+                android:layout_width="0dp"
+                android:layout_height="146dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/winebox_ps5_tile_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⌘"
+                    android:textColor="#B9C9E7"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Input Controls"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Controller and touch layouts"
+                    android:textColor="#AAB6CA"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <LinearLayout
+                android:id="@+id/BTSettings"
+                android:layout_width="0dp"
+                android:layout_height="146dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/winebox_ps5_tile_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚙"
+                    android:textColor="#B9C9E7"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Settings"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Configure WineBox"
+                    android:textColor="#AAB6CA"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/BTDashboard"
+                android:layout_width="0dp"
+                android:layout_height="146dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/winebox_ps5_promo"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="◈"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Game Library"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Back to your games"
+                    android:textColor="#D6D9EC"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/TVEmptyText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="32dp"
-        android:text="Your library is empty\nAdd a Windows shortcut to get started."
-        android:textColor="#EEEEEE"
-        android:textSize="15sp"
-        android:visibility="gone" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/BTPaste"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_margin="24dp"
-        android:src="@drawable/icon_paste"
-        android:tint="#FFFFFF"
-        android:backgroundTint="#444444"
-        android:visibility="gone" />
-</FrameLayout>
+</ScrollView>

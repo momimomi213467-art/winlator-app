@@ -30,21 +30,22 @@ android {
         }
     }
 
-    lintOptions {
+    lint {
         checkReleaseBuilds false
         abortOnError false
     }
 
-    ndkVersion '24.0.8215888'
+    // Native build temporarily disabled for CI stability.
+    // Re-enable when NDK/rootfs pipeline is fully configured.
+    // ndkVersion '24.0.8215888'
+    // externalNativeBuild {
+    //     cmake {
+    //         version '3.22.1'
+    //         path 'src/main/cpp/CMakeLists.txt'
+    //     }
+    // }
 
-    externalNativeBuild {
-        cmake {
-            version '3.22.1'
-            path 'src/main/cpp/CMakeLists.txt'
-        }
-    }
-
-    packagingOptions {
+    packaging {
         jniLibs {
             useLegacyPackaging = true
         }

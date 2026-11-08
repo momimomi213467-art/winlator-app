@@ -37,22 +37,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
+    private TextView selectedTitleView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.winebox_home_fragment, container, false);
         recyclerView = root.findViewById(R.id.RecyclerView);
-        root.findViewById(R.id.BTDrawer).setOnClickListener(v -> ((MainActivity) requireActivity()).openNavigationDrawer());
+        selectedTitleView = root.findViewById(R.id.TVWelcomeTitle);
+        root.findViewById(R.id.BTContainers).setOnClickListener(v -> ((MainActivity) requireActivity()).openContainersScreen());
+        root.findViewById(R.id.BTControls).setOnClickListener(v -> ((MainActivity) requireActivity()).openInputControlsScreen());
+        root.findViewById(R.id.BTSettings).setOnClickListener(v -> ((MainActivity) requireActivity()).openSettingsScreen());
+        root.findViewById(R.id.BTDashboard).setOnClickListener(v -> ((MainActivity) requireActivity()).openDashboard());
         emptyTextView = root.findViewById(R.id.TVEmptyText);
         pasteButton = root.findViewById(R.id.BTPaste);
         pasteButton.setOnClickListener((v) -> pasteFiles());
 
-        if (itemDecoration == null) {
-            Context context = getContext();
-            itemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-            itemDecoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.list_item_divider));
-        }
-        recyclerView.addItemDecoration(itemDecoration);
         return root;
     }
 
@@ -72,24 +71,22 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         ArrayList<Shortcut> shortcuts = manager.loadShortcuts(selectedFolder);
 
         if (libraryRoot) {
-            int widthDp = getResources().getConfiguration().screenWidthDp;
-            int columns = widthDp >= 900 ? 5 : widthDp >= 600 ? 4 : widthDp >= 400 ? 3 : 2;
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
             recyclerView.setClipToPadding(false);
-            recyclerView.setPadding(10, 12, 10, 20);
+            recyclerView.setPadding(12, 10, 12, 10);
+            selectedTitleView.setText(shortcuts.isEmpty() ? "Welcome" : shortcuts.get(0).name);
+        }
+        else if (viewStyle == ViewStyle.LIST) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
         else {
-            if (viewStyle == ViewStyle.LIST) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            }
-            else {
-                int columns = Math.max(2, getResources().getConfiguration().screenWidthDp / 200);
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
-            }
+            int columns = Math.max(2, getResources().getConfiguration().screenWidthDp / 200);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), columns));
         }
 
         recyclerView.setAdapter(new ShortcutsAdapter(shortcuts));
         emptyTextView.setVisibility(shortcuts.isEmpty() ? View.VISIBLE : View.GONE);
+        if (libraryRoot) emptyTextView.setText("Your game row is empty. Add a Windows shortcut to get started.");
     }
 
     @Override
@@ -189,14 +186,16 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            int resource = folderStack.isEmpty() ? R.layout.winebox_game_card : (viewStyle == ViewStyle.LIST ? R.layout.file_list_item : R.layout.file_grid_item);
+            int viewType = getItemViewType(0);
+            int resource = folderStack.isEmpty()
+                ? (viewType == 1 ? R.layout.winebox_game_card : R.layout.winebox_game_card_small)
+                : (viewStyle == ViewStyle.LIST ? R.layout.file_list_item : R.layout.file_grid_item);
             View itemView = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
             if (folderStack.isEmpty()) {
                 float density = getResources().getDisplayMetrics().density;
-                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, (int) (190 * density));
-                int margin = (int) (6 * density);
-                params.setMargins(margin, margin, margin, margin);
+                int width = (int) ((viewType == 1 ? 142 : 98) * density);
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT);
+                params.setMargins((int) (5 * density), 0, (int) (5 * density), 0);
                 itemView.setLayoutParams(params);
             }
             return new ViewHolder(itemView);
@@ -204,7 +203,7 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
 
         @Override
         public int getItemViewType(int position) {
-            return 0;
+            return folderStack.isEmpty() && position == 0 ? 1 : 0;
         }
 
         @Override
@@ -228,8 +227,9 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
             holder.itemView.setFocusable(true);
             holder.itemView.setOnClickListener((v) -> runFromShortcut(item));
             holder.itemView.setOnFocusChangeListener((v, hasFocus) -> {
-                v.animate().scaleX(hasFocus ? 1.035f : 1.0f).scaleY(hasFocus ? 1.035f : 1.0f)
-                    .translationZ(hasFocus ? 12.0f : 0.0f).setDuration(140).start();
+                v.animate().scaleX(hasFocus ? 1.06f : 1.0f).scaleY(hasFocus ? 1.06f : 1.0f)
+                    .translationZ(hasFocus ? 14.0f : 0.0f).setDuration(160).start();
+                if (hasFocus && folderStack.isEmpty()) selectedTitleView.setText(item.name);
             });
             holder.imageView.setOnClickListener((v) -> runFromShortcut(item));
             holder.runButton.setOnClickListener((v) -> runFromShortcut(item));

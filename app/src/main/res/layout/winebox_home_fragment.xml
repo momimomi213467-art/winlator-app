@@ -314,5 +314,15 @@
                     android:textSize="11sp" />
             </LinearLayout>
         </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/BTPaste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
+            android:src="@drawable/icon_paste"
+            android:tint="#FFFFFF"
+            android:backgroundTint="#334A70"
+            android:visibility="gone" />
     </LinearLayout>
 </ScrollView>

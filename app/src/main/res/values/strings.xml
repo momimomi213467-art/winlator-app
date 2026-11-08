@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Winlator</string>
+    <string name="app_name">WineBox</string>
+    <string name="winebox_last_game">Ultimo gioco · 75%</string>
+    <string name="winebox_add_game">Aggiungi gioco</string>
+    <string name="winebox_customize">Personalizza</string>
+    <string name="winebox_statistics">Statistiche</string>
+    <string name="winebox_played_hours">Ore giocate</string>
+    <string name="winebox_games_count">Giochi</string>
+    <string name="winebox_news">Novità</string>
+    <string name="winebox_news_title">WineBox: la tua libreria, tutta in un posto</string>
     <string name="run">Run</string>
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>

@@ -11,14 +11,27 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        try {
+            setContentView(R.layout.activity_splash);
+        } catch (Exception e) {
+            // if splash layout fails, go straight to main
+            goMain();
+            return;
+        }
 
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            try {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            } catch (Exception ignored) {
-            }
+        new Handler(Looper.getMainLooper()).postDelayed(this::goMain, 1200);
+    }
+
+    private void goMain() {
+        try {
+            Intent i = new Intent(SplashActivity.this, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        } catch (Exception ignored) {
+        }
+        try {
             finish();
-        }, 1500);
+        } catch (Exception ignored) {
+        }
     }
 }

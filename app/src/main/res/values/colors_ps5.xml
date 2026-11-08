@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PlayStation 5 inspired color palette -->
+    <color name="ps5_background">#0D0D0D</color>
+    <color name="ps5_surface">#1A1A1A</color>
+    <color name="ps5_card">#222222</color>
+    <color name="ps5_card_elevated">#2A2A2A</color>
+    <color name="ps5_accent">#0070D1</color>
+    <color name="ps5_accent_light">#1E90FF</color>
+    <color name="ps5_text_primary">#FFFFFF</color>
+    <color name="ps5_text_secondary">#B0B0B0</color>
+    <color name="ps5_text_tertiary">#808080</color>
+    <color name="ps5_divider">#333333</color>
+    <color name="ps5_online">#30D158</color>
+    <color name="ps5_trophy_gold">#FFD700</color>
+    <color name="ps5_trophy_silver">#C0C0C0</color>
+    <color name="ps5_trophy_bronze">#CD7F32</color>
+    <color name="ps5_black_friday">#FF2D55</color>
+</resources>

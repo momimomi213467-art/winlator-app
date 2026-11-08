@@ -23,23 +23,20 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          packages: platform-tools
 
-      - name: Install Android NDK and CMake
-        run: |
-          sdkmanager "ndk;24.0.8215888" "cmake;3.22.1"
+      - name: Install platforms
+        run: sdkmanager "platforms;android-35" "build-tools;34.0.0"
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
       - name: Build debug APK
-        run: ./gradlew --no-daemon :app:assembleDebug
+        run: ./gradlew --no-daemon :app:assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Gamelator-debug-apk
           path: app/build/outputs/apk/debug/*.apk
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14

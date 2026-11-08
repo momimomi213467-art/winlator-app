@@ -225,6 +225,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         showFragment(new SettingsFragment());
     }
 
+    public void openAboutScreen() {
+        (new AboutDialog(this)).show();
+    }
+
     public void openDashboard() {
         showFragment(new ShortcutsFragment());
     }

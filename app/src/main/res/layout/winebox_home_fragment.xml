@@ -2,19 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#080808">
-
-    <ImageView
-        android:id="@+id/BackgroundImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.30"
-        android:scaleType="centerCrop" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#99000000" />
+    android:background="#111111">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,17 +11,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="64dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="18dp"
-            android:paddingRight="22dp"
-            android:background="#66000000">
+            android:paddingRight="18dp"
+            android:background="#171717">
 
             <TextView
                 android:id="@+id/BTDrawer"
-                android:layout_width="34dp"
-                android:layout_height="42dp"
+                android:layout_width="42dp"
+                android:layout_height="48dp"
                 android:gravity="center"
                 android:text="☰"
                 android:textColor="#FFFFFF"
@@ -42,50 +30,12 @@
                 android:focusable="true" />
 
             <TextView
-                android:layout_width="34dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center"
-                android:background="@drawable/winebox_chip_background"
-                android:text="LB"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="26dp"
-                android:text="MY"
+                android:layout_marginStart="14dp"
+                android:text="WineBox"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="DISCOVER"
-                android:textColor="#A0A0A0"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="FIND GAMES"
-                android:textColor="#777777"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="34dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="24dp"
-                android:gravity="center"
-                android:background="@drawable/winebox_chip_background"
-                android:text="RB"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
+                android:textSize="21sp"
                 android:textStyle="bold" />
 
             <View
@@ -94,16 +44,26 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/BTSearch"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:gravity="center"
-                android:text="⌕"
-                android:textColor="#FFFFFF"
-                android:textSize="31sp"
-                android:clickable="true"
-                android:focusable="true" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MY LIBRARY"
+                android:textColor="#AAAAAA"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="18dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="8dp"
+            android:text="GAMES"
+            android:textColor="#EEEEEE"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.10" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView"
@@ -111,61 +71,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:clipToPadding="false"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="14dp"
-            android:paddingBottom="18dp"
             android:overScrollMode="never"
             android:scrollbars="none" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="22dp"
-            android:paddingRight="24dp"
-            android:background="#66000000">
-
-            <TextView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:text="Y"
-                android:textColor="#111111"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:background="@drawable/winebox_footer_key"
-                android:layout_marginRight="9dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Search"
-                android:textColor="#DDDDDD"
-                android:textSize="12sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:text="☰"
-                android:textColor="#111111"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:background="@drawable/winebox_footer_key"
-                android:layout_marginRight="9dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Menu"
-                android:textColor="#DDDDDD"
-                android:textSize="12sp" />
-        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -184,9 +91,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:layout_margin="72dp"
+        android:layout_margin="24dp"
         android:src="@drawable/icon_paste"
         android:tint="#FFFFFF"
-        android:backgroundTint="#555555"
+        android:backgroundTint="#444444"
         android:visibility="gone" />
 </FrameLayout>

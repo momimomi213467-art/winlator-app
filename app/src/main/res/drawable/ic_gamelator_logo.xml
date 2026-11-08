@@ -5,20 +5,35 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <path
-        android:fillColor="#0070D1"
-        android:pathData="M54,8c25.4,0 46,20.6 46,46s-20.6,46 -46,46S8,79.4 8,54 28.6,8 54,8z" />
-
-    <path
-        android:fillColor="#0D0D0D"
-        android:pathData="M54,22c17.7,0 32,14.3 32,32s-14.3,32 -32,32S22,71.7 22,54 36.3,22 54,22z" />
-
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M54,34c-11,0 -20,9 -20,20h12c0,-4.4 3.6,-8 8,-8s8,3.6 8,8c0,4.4 -3.6,8 -8,8v12c11,0 20,-9 20,-20s-9,-20 -20,-20z" />
-
+    <!-- Outer blue ring -->
     <path
         android:fillColor="#1E90FF"
-        android:pathData="M68,58a4,4 0 1,1 -8,0a4,4 0 1,1 8,0z" />
+        android:pathData="M54,6c26.5,0 48,21.5 48,48s-21.5,48 -48,48S6,80.5 6,54 27.5,6 54,6z" />
+
+    <!-- Dark inner circle -->
+    <path
+        android:fillColor="#0A0A0A"
+        android:pathData="M54,14c22.1,0 40,17.9 40,40s-17.9,40 -40,40S14,76.1 14,54 31.9,14 54,14z" />
+
+    <!-- White gamepad + G shape (Imagine style) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38,48c0,-8 6.5,-14 16,-14 7,0 12,3 14,8l-7,3c-1,-2 -3.5,-4 -7,-4 -5,0 -8,3.5 -8,7.5 0,4 3,7.5 8,7.5 3.5,0 6,-2 7,-4l7,3c-2,5 -7,8 -14,8 -9.5,0 -16,-6 -16,-14z" />
+
+    <!-- Left stick / grip -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,52c-4,0 -7,3 -7,7s3,7 7,7h6v-4h-5c-1.5,0 -3,-1.5 -3,-3s1.5,-3 3,-3h5v-4h-6z" />
+
+    <!-- Right buttons dots -->
+    <path
+        android:fillColor="#1E90FF"
+        android:pathData="M72,50a3,3 0 1,1 0,6a3,3 0 1,1 0,-6z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,56a2.5,2.5 0 1,1 0,5a2.5,2.5 0 1,1 0,-5z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,46a2.5,2.5 0 1,1 0,5a2.5,2.5 0 1,1 0,-5z" />
 
 </vector>

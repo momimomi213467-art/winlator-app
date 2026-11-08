@@ -18,22 +18,28 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:appCategory="game"
         android:isGame="true"
         android:extractNativeLibs="true"
         android:allowAudioPlaybackCapture="true"
-        android:label="@string/app_name">
+        android:label="GameLator">
 
-        <activity android:name="com.winlator.MainActivity"
+        <activity android:name="com.winlator.SplashActivity"
             android:theme="@style/AppThemeDark"
             android:exported="true"
-            android:screenOrientation="sensor"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation">
+            android:screenOrientation="sensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="com.winlator.MainActivity"
+            android:theme="@style/AppThemeDark"
+            android:exported="false"
+            android:screenOrientation="sensor"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation" />
 
         <activity android:name="com.winlator.XServerDisplayActivity"
             android:exported="false"
@@ -53,7 +59,6 @@
             android:exported="false"
             android:screenOrientation="sensor" />
 
-        <!-- Needed for keep the container alive when in background or the device is locked. -->
         <service
             android:name="com.winlator.services.ForegroundService"
             android:enabled="true"

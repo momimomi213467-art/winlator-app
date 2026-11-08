@@ -1,4 +1,4 @@
-name: WineBox APK
+name: Gamelator APK
 
 on:
   push:
@@ -23,6 +23,8 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
 
       - name: Install Android NDK and CMake
         run: |
@@ -37,7 +39,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: WineBox-debug-apk
+          name: Gamelator-debug-apk
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           retention-days: 14

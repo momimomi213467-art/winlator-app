@@ -47,7 +47,7 @@ public class ShortcutsFragment extends BaseFileManagerFragment<Shortcut> {
         root.findViewById(R.id.BTContainers).setOnClickListener(v -> ((MainActivity) requireActivity()).openContainersScreen());
         root.findViewById(R.id.BTControls).setOnClickListener(v -> ((MainActivity) requireActivity()).openInputControlsScreen());
         root.findViewById(R.id.BTSettings).setOnClickListener(v -> ((MainActivity) requireActivity()).openSettingsScreen());
-        root.findViewById(R.id.BTDashboard).setOnClickListener(v -> ((MainActivity) requireActivity()).openDashboard());
+        root.findViewById(R.id.BTDashboard).setOnClickListener(v -> ((MainActivity) requireActivity()).openAboutScreen());
         emptyTextView = root.findViewById(R.id.TVEmptyText);
         pasteButton = root.findViewById(R.id.BTPaste);
         pasteButton.setOnClickListener((v) -> pasteFiles());

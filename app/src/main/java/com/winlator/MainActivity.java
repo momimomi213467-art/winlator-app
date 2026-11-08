@@ -10,11 +10,12 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -33,7 +34,7 @@ import com.winlator.core.PreloaderDialog;
 import com.winlator.xenvironment.RootFSInstaller;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    public static final boolean DEBUG_MODE = false; // FIXME change to false
+    public static final boolean DEBUG_MODE = false;
     public static final @IntRange(from = 1, to = 19) byte CONTAINER_PATTERN_COMPRESSION_LEVEL = 9;
     public static final byte PERMISSION_WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1;
     public static final byte OPEN_FILE_REQUEST_CODE = 2;
@@ -46,39 +47,61 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Callback<Uri> openFileCallback;
     private SharedPreferences preferences;
     private Fragment currentFragment;
+    private boolean useGameHubUi = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppUtils.setActivityTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
-
-        drawerLayout = findViewById(R.id.DrawerLayout);
-        NavigationView navigationView = findViewById(R.id.NavigationView);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        setSupportActionBar(findViewById(R.id.Toolbar));
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Intent intent = getIntent();
         editInputControls = intent.getBooleanExtra("edit_input_controls", false);
+
+        // GameHub-style home UI (default)
+        setContentView(R.layout.activity_main_gamehub);
+        useGameHubUi = true;
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Optional drawer views may be absent in GameHub layout
+        drawerLayout = findViewById(R.id.DrawerLayout);
+        NavigationView navigationView = findViewById(R.id.NavigationView);
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
+
+        // Bottom nav wiring
+        View navHome = findViewById(R.id.nav_home);
+        View navLibrary = findViewById(R.id.nav_library);
+        View navAdd = findViewById(R.id.nav_add);
+        View navProfile = findViewById(R.id.nav_profile);
+        View btnSettings = findViewById(R.id.gh_btn_settings);
+
+        if (navHome != null) {
+            navHome.setOnClickListener(v -> showFragment(new ShortcutsFragment()));
+        }
+        if (navLibrary != null) {
+            navLibrary.setOnClickListener(v -> showFragment(new ContainersFragment()));
+        }
+        if (navAdd != null) {
+            navAdd.setOnClickListener(v -> showFragment(new ContainersFragment()));
+        }
+        if (navProfile != null || btnSettings != null) {
+            View.OnClickListener openSettings = v -> showFragment(new SettingsFragment());
+            if (navProfile != null) navProfile.setOnClickListener(openSettings);
+            if (btnSettings != null) btnSettings.setOnClickListener(openSettings);
+        }
+
         if (editInputControls) {
             selectedProfileId = intent.getIntExtra("selected_profile_id", 0);
-            actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_back);
-            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.menu_item_input_controls));
-            navigationView.setCheckedItem(R.id.menu_item_input_controls);
-        }
-        else {
-            boolean showShortcutsFirst = preferences.getBoolean("show_shortcuts_first", false);
-            int selectedMenuItemId = intent.getIntExtra("selected_menu_item_id", 0);
-            int menuItemId = selectedMenuItemId > 0 ? selectedMenuItemId : R.id.menu_item_winebox_home;
-
-            actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_menu);
-            onNavigationItemSelected(navigationView.getMenu().findItem(menuItemId));
-            navigationView.setCheckedItem(menuItemId);
+            showFragment(new InputControlsFragment(selectedProfileId));
+        } else {
+            boolean showShortcutsFirst = preferences.getBoolean("show_shortcuts_first", true);
+            if (showShortcutsFirst) {
+                showFragment(new ShortcutsFragment());
+            } else {
+                showFragment(new ContainersFragment());
+            }
             if (!requestAppPermissions()) RootFSInstaller.installIfNeeded(this);
 
             int containerId = intent.getIntExtra("container_id", 0);
@@ -100,8 +123,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (requestCode == PERMISSION_WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 RootFSInstaller.installIfNeeded(this);
+            } else {
+                finish();
             }
-            else finish();
         }
     }
 
@@ -121,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onConfigurationChanged(newConfig);
         if ((newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ||
             newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) && currentFragment instanceof BaseFileManagerFragment) {
-            ((BaseFileManagerFragment)currentFragment).onOrientationChanged();
+            ((BaseFileManagerFragment) currentFragment).onOrientationChanged();
         }
     }
 
@@ -129,15 +153,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (currentFragment != null && currentFragment.isVisible()) {
             if (currentFragment instanceof BaseFileManagerFragment) {
-                BaseFileManagerFragment fileManagerFragment = (BaseFileManagerFragment)currentFragment;
+                BaseFileManagerFragment fileManagerFragment = (BaseFileManagerFragment) currentFragment;
                 if (fileManagerFragment.onBackPressed()) return;
-            }
-            else if (currentFragment instanceof ContainersFragment) {
+            } else if (currentFragment instanceof ContainersFragment) {
                 finish();
+                return;
             }
         }
-
-        showFragment(new ContainersFragment());
+        showFragment(new ShortcutsFragment());
     }
 
     public void setOpenFileCallback(Callback<Uri> openFileCallback) {
@@ -146,8 +169,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private boolean requestAppPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) return false;
-
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
         String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         ActivityCompat.requestPermissions(this, permissions, PERMISSION_WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
         return true;
@@ -161,17 +185,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             itemId == R.id.menu_item_view_style ||
             itemId == R.id.menu_item_new_folder) {
             return super.onOptionsItemSelected(menuItem);
-        }
-        else {
+        } else {
             if (editInputControls) {
                 setResult(RESULT_OK);
                 finish();
-            }
-            else {
-                if (currentFragment instanceof BaseFileManagerFragment) {
-                    BaseFileManagerFragment fileManagerFragment = (BaseFileManagerFragment)currentFragment;
-                    if (fileManagerFragment.onOptionsMenuClicked()) return true;
-                }
+            } else if (currentFragment instanceof BaseFileManagerFragment) {
+                BaseFileManagerFragment fileManagerFragment = (BaseFileManagerFragment) currentFragment;
+                if (fileManagerFragment.onOptionsMenuClicked()) return true;
+            } else if (drawerLayout != null) {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
             return true;
@@ -216,7 +237,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             .replace(R.id.FLFragmentContainer, fragment)
             .commit();
 
-        drawerLayout.closeDrawer(GravityCompat.START);
+        if (drawerLayout != null) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
         currentFragment = fragment;
     }
 }

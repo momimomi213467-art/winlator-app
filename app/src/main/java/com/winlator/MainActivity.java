@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -26,12 +28,13 @@ import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.winlator.contentdialog.AboutDialog;
-import com.winlator.core.AppUtils;
 import com.winlator.core.Callback;
-import com.winlator.core.LocaleHelper;
 import com.winlator.core.PreloaderDialog;
-import com.winlator.xenvironment.RootFSInstaller;
 
+/**
+ * GameHub-style shell. Fragments are loaded only on user tap to avoid startup crashes
+ * when native / RootFS pieces are missing.
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final boolean DEBUG_MODE = false;
     public static final @IntRange(from = 1, to = 19) byte CONTAINER_PATTERN_COMPRESSION_LEVEL = 9;
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final byte OPEN_FILE_REQUEST_CODE = 2;
     public static final byte EDIT_INPUT_CONTROLS_REQUEST_CODE = 3;
     public static final byte OPEN_DIRECTORY_REQUEST_CODE = 4;
+
     private DrawerLayout drawerLayout;
     public PreloaderDialog preloaderDialog;
     private boolean editInputControls = false;
@@ -49,58 +53,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            AppUtils.setActivityTheme(this);
-        } catch (Exception ignored) {
-        }
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main_gamehub);
 
         try {
+            preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        } catch (Exception e) {
+            preferences = null;
+        }
+
+        try {
             preloaderDialog = new PreloaderDialog(this);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
             preloaderDialog = null;
         }
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         Intent intent = getIntent();
-        editInputControls = intent != null && intent.getBooleanExtra("edit_input_controls", false);
+        if (intent != null) {
+            editInputControls = intent.getBooleanExtra("edit_input_controls", false);
+            selectedProfileId = intent.getIntExtra("selected_profile_id", 0);
+        }
 
         drawerLayout = findViewById(R.id.DrawerLayout);
-        NavigationView navigationView = findViewById(R.id.NavigationView);
-        if (navigationView != null) {
-            navigationView.setNavigationItemSelectedListener(this);
+
+        // Placeholder text inside content area so user sees a stable home
+        View container = findViewById(R.id.FLFragmentContainer);
+        if (container instanceof android.widget.FrameLayout) {
+            TextView hint = new TextView(this);
+            hint.setText("GameLator\n\nTocca Library o + Add per continuare");
+            hint.setTextColor(0xFFFFFFFF);
+            hint.setTextSize(16f);
+            hint.setPadding(48, 48, 48, 48);
+            ((android.widget.FrameLayout) container).addView(hint);
         }
 
         wireBottomNav();
 
+        // Do NOT auto-load ShortcutsFragment / RootFS on startup (common crash source)
         if (editInputControls) {
-            selectedProfileId = intent.getIntExtra("selected_profile_id", 0);
-            safeShowFragment(new InputControlsFragment(selectedProfileId));
-        } else {
-            boolean showShortcutsFirst = preferences.getBoolean("show_shortcuts_first", true);
-            if (showShortcutsFirst) {
-                safeShowFragment(new ShortcutsFragment());
-            } else {
-                safeShowFragment(new ContainersFragment());
-            }
-
-            // RootFS / native may be missing in this CI build — never crash the UI
-            try {
-                if (!requestAppPermissions()) {
-                    tryInstallRootFs();
-                }
-            } catch (Exception ignored) {
-            }
-
-            if (intent != null) {
-                int containerId = intent.getIntExtra("container_id", 0);
-                String startPath = intent.getStringExtra("start_path");
-                if (containerId > 0 && startPath != null) {
-                    safeShowFragment(new ContainerFileManagerFragment(containerId, startPath));
-                }
-            }
+            tryLoad(() -> showFragment(new InputControlsFragment(selectedProfileId)));
         }
     }
 
@@ -112,180 +103,87 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View btnSettings = findViewById(R.id.gh_btn_settings);
 
         if (navHome != null) {
-            navHome.setOnClickListener(v -> safeShowFragment(new ShortcutsFragment()));
+            navHome.setOnClickListener(v -> tryLoad(() -> showFragment(new ShortcutsFragment())));
         }
         if (navLibrary != null) {
-            navLibrary.setOnClickListener(v -> safeShowFragment(new ContainersFragment()));
+            navLibrary.setOnClickListener(v -> tryLoad(() -> showFragment(new ContainersFragment())));
         }
         if (navAdd != null) {
-            navAdd.setOnClickListener(v -> safeShowFragment(new ContainersFragment()));
+            navAdd.setOnClickListener(v -> tryLoad(() -> showFragment(new ContainersFragment())));
         }
-        View.OnClickListener openSettings = v -> safeShowFragment(new SettingsFragment());
-        if (navProfile != null) navProfile.setOnClickListener(openSettings);
-        if (btnSettings != null) btnSettings.setOnClickListener(openSettings);
+        View.OnClickListener settings = v -> tryLoad(() -> showFragment(new SettingsFragment()));
+        if (navProfile != null) navProfile.setOnClickListener(settings);
+        if (btnSettings != null) btnSettings.setOnClickListener(settings);
     }
 
-    private void tryInstallRootFs() {
+    private void tryLoad(Runnable action) {
         try {
-            RootFSInstaller.installIfNeeded(this);
+            action.run();
         } catch (Throwable t) {
-            // Native libs may be absent — UI must still open
-        }
-    }
-
-    private void safeShowFragment(Fragment fragment) {
-        try {
-            showFragment(fragment);
-        } catch (Throwable t) {
-            // keep empty shell visible
+            Toast.makeText(this, "Funzione non disponibile in questa build", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        try {
-            super.attachBaseContext(LocaleHelper.setSystemLocale(newBase));
-        } catch (Exception e) {
-            super.attachBaseContext(newBase);
-        }
+        super.attachBaseContext(newBase);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                tryInstallRootFs();
-            }
-            // do not finish() — allow UI without storage
-        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MainActivity.OPEN_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (openFileCallback != null && data != null) {
-                openFileCallback.call(data.getData());
-                openFileCallback = null;
-            }
+        if (requestCode == OPEN_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK && openFileCallback != null && data != null) {
+            openFileCallback.call(data.getData());
+            openFileCallback = null;
         }
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        try {
-            if ((newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ||
-                newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) && currentFragment instanceof BaseFileManagerFragment) {
-                ((BaseFileManagerFragment) currentFragment).onOrientationChanged();
-            }
-        } catch (Exception ignored) {
-        }
     }
 
     @Override
     public void onBackPressed() {
-        try {
-            if (currentFragment != null && currentFragment.isVisible()) {
-                if (currentFragment instanceof BaseFileManagerFragment) {
-                    if (((BaseFileManagerFragment) currentFragment).onBackPressed()) return;
-                } else if (currentFragment instanceof ContainersFragment) {
-                    finish();
-                    return;
-                }
-            }
-            safeShowFragment(new ShortcutsFragment());
-        } catch (Exception e) {
-            finish();
+        if (currentFragment != null) {
+            currentFragment = null;
+            recreate();
+            return;
         }
+        super.onBackPressed();
     }
 
     public void setOpenFileCallback(Callback<Uri> openFileCallback) {
         this.openFileCallback = openFileCallback;
     }
 
-    private boolean requestAppPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-        try {
-            String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-            ActivityCompat.requestPermissions(this, permissions, PERMISSION_WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
-        } catch (Exception ignored) {
-        }
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
-        int itemId = menuItem.getItemId();
-        if (itemId == R.id.menu_item_add ||
-            itemId == R.id.menu_item_home ||
-            itemId == R.id.menu_item_view_style ||
-            itemId == R.id.menu_item_new_folder) {
-            return super.onOptionsItemSelected(menuItem);
-        } else {
-            if (editInputControls) {
-                setResult(RESULT_OK);
-                finish();
-            } else if (currentFragment instanceof BaseFileManagerFragment) {
-                try {
-                    if (((BaseFileManagerFragment) currentFragment).onOptionsMenuClicked()) return true;
-                } catch (Exception ignored) {
-                }
-            } else if (drawerLayout != null) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-            return true;
-        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        try {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            if (fragmentManager.getBackStackEntryCount() > 0) {
-                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-
-            switch (item.getItemId()) {
-                case R.id.menu_item_winebox_home:
-                    safeShowFragment(new HomeWineBoxFragment());
-                    break;
-                case R.id.menu_item_shortcuts:
-                    preferences.edit().putBoolean("show_shortcuts_first", true).apply();
-                    safeShowFragment(new ShortcutsFragment());
-                    break;
-                case R.id.menu_item_containers:
-                    preferences.edit().putBoolean("show_shortcuts_first", false).apply();
-                    safeShowFragment(new ContainersFragment());
-                    break;
-                case R.id.menu_item_input_controls:
-                    safeShowFragment(new InputControlsFragment(selectedProfileId));
-                    break;
-                case R.id.menu_item_settings:
-                    safeShowFragment(new SettingsFragment());
-                    break;
-                case R.id.menu_item_about:
-                    (new AboutDialog(this)).show();
-                    break;
-            }
-        } catch (Exception ignored) {
-        }
         return true;
     }
 
     public void showFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
+        View host = findViewById(R.id.FLFragmentContainer);
+        if (host instanceof android.widget.FrameLayout) {
+            ((android.widget.FrameLayout) host).removeAllViews();
+        }
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
             .replace(R.id.FLFragmentContainer, fragment)
             .commitAllowingStateLoss();
-
+        currentFragment = fragment;
         if (drawerLayout != null) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
-        currentFragment = fragment;
     }
 }

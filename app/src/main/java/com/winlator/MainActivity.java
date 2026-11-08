@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.DrawerLayout);
         NavigationView navigationView = findViewById(R.id.NavigationView);
         navigationView.setNavigationItemSelectedListener(this);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         setSupportActionBar(findViewById(R.id.Toolbar));
         ActionBar actionBar = getSupportActionBar();
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.menu_item_input_controls);
         }
         else {
-            boolean showShortcutsFirst = preferences.getBoolean("show_shortcuts_first", false);
+            boolean showShortcutsFirst = preferences.getBoolean("show_shortcuts_first", true);
             int selectedMenuItemId = intent.getIntExtra("selected_menu_item_id", 0);
             int menuItemId = selectedMenuItemId > 0 ? selectedMenuItemId : (showShortcutsFirst ? R.id.menu_item_shortcuts : R.id.menu_item_containers);
 
@@ -172,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     BaseFileManagerFragment fileManagerFragment = (BaseFileManagerFragment)currentFragment;
                     if (fileManagerFragment.onOptionsMenuClicked()) return true;
                 }
-                drawerLayout.openDrawer(GravityCompat.START);
+                showFragment(new ShortcutsFragment());
             }
             return true;
         }
@@ -207,7 +209,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    public void openNavigationDrawer() {
+        // The console dashboard intentionally has no legacy navigation drawer.
+    }
+
+    public void openContainersScreen() {
+        showFragment(new ContainersFragment());
+    }
+
+    public void openInputControlsScreen() {
+        showFragment(new InputControlsFragment(selectedProfileId));
+    }
+
+    public void openSettingsScreen() {
+        showFragment(new SettingsFragment());
+    }
+
+    public void openDashboard() {
+        showFragment(new ShortcutsFragment());
+    }
+
     public void showFragment(Fragment fragment) {
+        boolean dashboard = fragment instanceof ShortcutsFragment;
+        View toolbar = findViewById(R.id.Toolbar);
+        if (toolbar != null) toolbar.setVisibility(dashboard ? View.GONE : View.VISIBLE);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null && !dashboard) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_back);
+            actionBar.setTitle(fragment instanceof SettingsFragment ? "Settings" :
+                fragment instanceof ContainersFragment ? "Containers" :
+                fragment instanceof InputControlsFragment ? "Input Controls" : "WineBox");
+        }
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
             .replace(R.id.FLFragmentContainer, fragment)

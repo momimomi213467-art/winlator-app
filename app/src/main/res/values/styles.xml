@@ -21,17 +21,17 @@
         <item name="radioButtonStyle">@style/RadioButton</item>
     </style>
     <style name="AppThemeLight" parent="@style/AppThemeBase">
-        <item name="colorAccent">#0288d1</item>
-        <item name="colorPrimary">#607d8b</item>
-        <item name="colorPrimaryDark">#455a64</item>
+        <item name="colorAccent">#555555</item>
+        <item name="colorPrimary">#303030</item>
+        <item name="colorPrimaryDark">#111111</item>
         <item name="colorControlNormal">#e0e0e0</item>
         <item name="colorPrimaryText">#424242</item>
         <item name="colorSecondaryText">#757575</item>
         <item name="colorPrimarySurface">#fafafa</item>
         <item name="colorSecondarySurface">#ffffff</item>
-        <item name="colorPrimaryVariant">#607d8b</item>
-        <item name="colorSecondaryVariant">#d3dce0</item>
-        <item name="colorError">#ef5350</item>
+        <item name="colorPrimaryVariant">#303030</item>
+        <item name="colorSecondaryVariant">#D0D0D0</item>
+        <item name="colorError">#BDBDBD</item>
         <item name="popupMenuBackground">@drawable/content_dialog_background_light</item>
         <item name="toolboxBackground">@drawable/toolbox_light</item>
         <item name="panelBackground">@drawable/panel_background_light</item>
@@ -39,17 +39,20 @@
         <item name="progressBarIndeterminateImage">@drawable/progress_bar_indeterminate_light</item>
     </style>
     <style name="AppThemeDark" parent="@style/AppThemeBase">
-        <item name="colorAccent">#0288d1</item>
-        <item name="colorPrimary">#505963</item>
-        <item name="colorPrimaryDark">#3f474f</item>
-        <item name="colorControlNormal">#616161</item>
-        <item name="colorPrimaryText">#fafafa</item>
-        <item name="colorSecondaryText">#9e9e9e</item>
-        <item name="colorPrimarySurface">#1b1e21</item>
-        <item name="colorSecondarySurface">#2d3238</item>
-        <item name="colorPrimaryVariant">#56677a</item>
-        <item name="colorSecondaryVariant">#37424f</item>
-        <item name="colorError">#ef5350</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorPrimary">#111111</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorControlNormal">#BDBDBD</item>
+        <item name="colorPrimaryText">#FFFFFF</item>
+        <item name="colorSecondaryText">#B8B8B8</item>
+        <item name="colorPrimarySurface">#000000</item>
+        <item name="colorSecondarySurface">#171717</item>
+        <item name="colorPrimaryVariant">#777777</item>
+        <item name="colorSecondaryVariant">#333333</item>
+        <item name="colorError">#BDBDBD</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="android:navigationBarColor">#000000</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="popupMenuBackground">@drawable/content_dialog_background_dark</item>
         <item name="toolboxBackground">@drawable/toolbox_dark</item>
         <item name="panelBackground">@drawable/panel_background_dark</item>
@@ -253,12 +256,12 @@
     <style name="TableHeadRightLine">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">#0278b8</item>
+        <item name="android:background">#777777</item>
     </style>
     <style name="TableHeadBottomLine">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">#0278b8</item>
+        <item name="android:background">#777777</item>
     </style>
     <style name="TableBodyRightLine">
         <item name="android:layout_width">1dp</item>

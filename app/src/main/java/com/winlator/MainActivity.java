@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.DrawerLayout);
         NavigationView navigationView = findViewById(R.id.NavigationView);
         navigationView.setNavigationItemSelectedListener(this);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         setSupportActionBar(findViewById(R.id.Toolbar));
         ActionBar actionBar = getSupportActionBar();
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     BaseFileManagerFragment fileManagerFragment = (BaseFileManagerFragment)currentFragment;
                     if (fileManagerFragment.onOptionsMenuClicked()) return true;
                 }
-                drawerLayout.openDrawer(GravityCompat.START);
+                showFragment(new ShortcutsFragment());
             }
             return true;
         }
@@ -209,12 +210,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void openNavigationDrawer() {
-        if (drawerLayout != null) drawerLayout.openDrawer(GravityCompat.START);
+        // The console dashboard intentionally has no legacy navigation drawer.
+    }
+
+    public void openContainersScreen() {
+        showFragment(new ContainersFragment());
+    }
+
+    public void openInputControlsScreen() {
+        showFragment(new InputControlsFragment(selectedProfileId));
+    }
+
+    public void openSettingsScreen() {
+        showFragment(new SettingsFragment());
+    }
+
+    public void openDashboard() {
+        showFragment(new ShortcutsFragment());
     }
 
     public void showFragment(Fragment fragment) {
+        boolean dashboard = fragment instanceof ShortcutsFragment;
         View toolbar = findViewById(R.id.Toolbar);
-        if (toolbar != null) toolbar.setVisibility(fragment instanceof ShortcutsFragment ? View.GONE : View.VISIBLE);
+        if (toolbar != null) toolbar.setVisibility(dashboard ? View.GONE : View.VISIBLE);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null && !dashboard) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_back);
+            actionBar.setTitle(fragment instanceof SettingsFragment ? "Settings" :
+                fragment instanceof ContainersFragment ? "Containers" :
+                fragment instanceof InputControlsFragment ? "Input Controls" : "WineBox");
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()

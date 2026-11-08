@@ -24,27 +24,18 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install NDK and CMake
-        run: |
-          sdkmanager --install "ndk;24.0.8215888" "cmake;3.22.1" "build-tools;34.0.0" "platforms;android-35"
-          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/24.0.8215888" >> $GITHUB_ENV
+      - name: Install build tools
+        run: sdkmanager --install "build-tools;34.0.0" "platforms;android-35"
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build Debug APK
-        run: |
-          ./gradlew assembleDebug --stacktrace --info || true
-          # Try again without native if needed for diagnostic
-          ls -la app/build/outputs/apk/debug/ || echo "No APK yet"
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK artifact
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: GameLator-1.0-debug
-          path: |
-            app/build/outputs/apk/debug/*.apk
-            app/build/outputs/**/*.apk
+          path: app/build/outputs/apk/debug/*.apk
           retention-days: 14
-          if-no-files-found: warn
